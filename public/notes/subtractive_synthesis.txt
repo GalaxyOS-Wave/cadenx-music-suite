@@ -1,0 +1,10 @@
+Subtractive synthesis is the foundation of most modern electronic sounds.
+By starting with a rich waveform and "subtracting" frequencies with a filter, we can create everything from deep bass to bright leads.
+
+Key concepts in this module:
+1. Oscillators (Saw, Square, Sine, Triangle).
+2. Filters (Low-pass, High-pass, Band-pass).
+3. Envelopes (ADSR: Attack, Decay, Sustain, Release).
+4. LFOs (Low-Frequency Oscillators) for modulation.
+
+Experiment with these parameters to find your unique sound!

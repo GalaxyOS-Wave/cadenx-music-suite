@@ -1,0 +1,10 @@
+Equalization (EQ) is the most powerful tool in your mixing arsenal.
+By adjusting the balance between frequency components, we can create space and clarity in our mixes.
+
+In this module, we will explore:
+1. Parametric vs. Graphic EQ.
+2. Low-cut/High-cut filters for cleaning up tracks.
+3. Boosting vs. Cutting: Why cutting is usually better.
+4. Identifying and fixing frequency clashes between instruments.
+
+A clean mix starts with a good EQ strategy!

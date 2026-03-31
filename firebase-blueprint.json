@@ -1,0 +1,48 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the Cadenx Music Ecosystem.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique Firebase Auth UID." },
+        "email": { "type": "string", "format": "email", "description": "The user's email address." },
+        "displayName": { "type": "string", "description": "The user's display name." },
+        "photoURL": { "type": "string", "format": "uri", "description": "The user's profile photo URL." },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "The user's role in the system." },
+        "purchasedBatches": { "type": "array", "items": { "type": "string" }, "description": "List of batch IDs the user has unlocked." }
+      },
+      "required": ["uid", "email"]
+    },
+    "Enrollment": {
+      "title": "Enrollment",
+      "description": "An enrollment application for a music production batch.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The UID of the user who enrolled." },
+        "name": { "type": "string", "description": "The student's full name." },
+        "email": { "type": "string", "format": "email", "description": "The student's email." },
+        "phone": { "type": "string", "description": "The student's phone number." },
+        "country": { "type": "string", "description": "The student's country." },
+        "city": { "type": "string", "description": "The student's city." },
+        "socialHandle": { "type": "string", "description": "The student's social media handle." },
+        "course": { "type": "string", "description": "The selected course/batch ID." },
+        "experience": { "type": "string", "description": "The student's experience level." },
+        "message": { "type": "string", "description": "The student's goals or message." },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"], "description": "The status of the enrollment." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the enrollment was submitted." }
+      },
+      "required": ["uid", "name", "email", "course"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and access control."
+    },
+    "/enrollments/{enrollmentId}": {
+      "schema": "Enrollment",
+      "description": "Enrollment applications submitted by users."
+    }
+  }
+}

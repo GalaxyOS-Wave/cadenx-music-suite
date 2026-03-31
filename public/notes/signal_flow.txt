@@ -1,0 +1,10 @@
+Understanding Signal Flow is one of the most important concepts in audio engineering.
+It's the path that audio takes from its source (microphone, instrument, or software) to its destination (speakers, headphones, or a recording).
+
+In this module, we will cover:
+1. Input vs. Output.
+2. Gain Staging: Why it matters and how to do it right.
+3. Inserts vs. Sends: When to use each.
+4. Routing audio between tracks and buses.
+
+Mastering signal flow will save you hours of troubleshooting later!
