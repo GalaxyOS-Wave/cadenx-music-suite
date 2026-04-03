@@ -1,4 +1,11 @@
 
+fetch("sendEmail", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, email, message }),
+  });
 import { AcademyApp } from './apps/academy.js';
 import { ChordApp } from './apps/chord.js';
 import { FormsApp } from './apps/forms.js';

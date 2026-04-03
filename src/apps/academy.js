@@ -1,6 +1,12 @@
 
 import { db, handleFirestoreError, OperationType } from '../firebase.js';
-
+fetch("sendemail.js", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, email, message }),
+  });
 export const ACADEMY_DATA = [
     {
         id: 'b1',
