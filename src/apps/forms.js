@@ -17,11 +17,29 @@ export const FormsApp = {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
                     ${[
-                        { title: 'Profile Registration', icon: 'user-plus', desc: 'Submit your professional details for the CHORD directory.', tag: 'Talent' },
-                        { title: 'Service Listing', icon: 'briefcase', desc: 'Apply to list your professional services on our marketplace.', tag: 'Business' },
-                        { title: 'Feedback Portal', icon: 'message-square', desc: 'Help us refine the ecosystem with your insights.', tag: 'System' }
+                        { 
+                            title: 'Profile Registration', 
+                            icon: 'user-plus', 
+                            desc: 'Submit your professional details for the CHORD directory.', 
+                            tag: 'Talent',
+                            link: 'https://forms.gle/7FML4dnruF7KsPEBA'
+                        },
+                        { 
+                            title: 'Service Listing', 
+                            icon: 'briefcase', 
+                            desc: 'Apply to list your professional services on our marketplace.', 
+                            tag: 'Business',
+                            link: 'https://forms.gle/FORM_LINK_2'
+                        },
+                        { 
+                            title: 'Feedback Portal', 
+                            icon: 'message-square', 
+                            desc: 'Help us refine the ecosystem with your insights.', 
+                            tag: 'System',
+                            link: 'https://forms.gle/FORM_LINK_3'
+                        }
                     ].map((f, idx) => `
-                        <div onclick="window.open('https://forms.gle/esqMqPW9UZRuoL458')" 
+                        <div onclick="window.open('${f.link}', '_blank')" 
                             class="bg-slate-50 border border-slate-200 rounded-3xl p-6 md:p-10 flex flex-col space-y-6 hover:bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-pointer shadow-sm"
                             style="animation-delay: ${idx * 0.1}s">
 
