@@ -1,12 +1,6 @@
 
 import { db, handleFirestoreError, OperationType } from '../firebase.js';
-fetch("sendemail.js", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ name, email, message }),
-  });
+
 export const ACADEMY_DATA = [
     {
         id: 'b1',
@@ -15,6 +9,8 @@ export const ACADEMY_DATA = [
         level: 'Beginner',
         duration: '0:00',
         price: '₹0',
+        cover: 'graphics/sursadhana.png',
+        thumbnail: 'graphics/sursadhana.png',
         purchaseUrl: 'https://forms.google.com/purchase-batch-1',
         thumbnail: 'graphics/sursadhana.png',
         videos: [
@@ -161,7 +157,7 @@ export const AcademyApp = {
                              class="batch-card group bg-white border border-accent-soft rounded-[32px] p-6 space-y-5 cursor-pointer animate-fade-in shadow-sm hover:shadow-xl hover:border-academy hover:bg-accent-soft transition-all"
                              style="animation-delay: ${idx * 0.1}s">
                             <div class="aspect-video bg-white rounded-[20px] overflow-hidden relative shadow-lg">
-                                <img src="https://picsum.photos/seed/${batch.id}/600/400" alt="Batch" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
+                                <img src="${batch.thumbnail || `https://picsum.photos/seed/${batch.id}/600/400`}" alt="Batch" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
                                 <div class="absolute inset-0 bg-gradient-to-t from-academy/40 to-transparent opacity-60"></div>
                                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <div class="w-12 h-12 bg-academy text-white rounded-full flex items-center justify-center shadow-2xl transform scale-90 group-hover:scale-100 transition-transform">
@@ -242,7 +238,7 @@ export const AcademyApp = {
 
                     <div class="relative order-1 md:order-2">
                         <div class="aspect-square bg-accent-soft rounded-[40px] md:rounded-[60px] overflow-hidden shadow-2xl border border-accent-soft relative group">
-                            <img src="https://picsum.photos/seed/${batch.id}/800/800" class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-1000">
+                            <img src="${batch.thumbnail || `https://picsum.photos/seed/${batch.id}/800/800`}" class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-1000">
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <div class="w-20 h-20 md:w-24 md:h-24 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-full flex items-center justify-center shadow-2xl border border-white dark:border-slate-700">
                                     <i data-lucide="lock" class="w-8 h-8 md:w-10 md:h-10 text-academy"></i>
@@ -262,97 +258,94 @@ export const AcademyApp = {
     },
 
     renderCourseView() {
-    const currentIdx = this.state.selectedBatch.videos.indexOf(this.state.activeVideo);
-    const progress = Math.round(((currentIdx + 1) / this.state.selectedBatch.videos.length) * 100);
+        const currentIdx = this.state.selectedBatch.videos.indexOf(this.state.activeVideo);
+        const progress = Math.round(((currentIdx + 1) / this.state.selectedBatch.videos.length) * 100);
 
-    return `
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
-            <!-- Video Player Area -->
-            <div class="lg:col-span-8 space-y-6 md:space-y-10">
-                <div class="space-y-3 md:space-y-4">
-                    <div class="flex items-center justify-between text-[8px] md:text-[10px] mono text-[var(--text-muted)] uppercase tracking-[0.3em]">
-                        <span>Course Progress</span>
-                        <span>${progress}% Complete</span>
-                    </div>
-                    <div class="progress-bar bg-accent-soft">
-                        <div class="progress-fill bg-academy" style="width: ${progress}%"></div>
-                    </div>
-                </div>
-
-                <div class="aspect-video bg-slate-900 rounded-[24px] md:rounded-[48px] overflow-hidden border border-accent-soft shadow-2xl relative group">
-                    <video src="${this.state.activeVideo.url}" class="w-full h-full" controls autoplay></video>
-                </div>
-                
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-8 p-2">
-                    <div class="space-y-2 md:space-y-3">
-                        <h2 class="display text-2xl md:text-4xl font-bold tracking-tight text-[var(--text)] leading-tight">${this.state.activeVideo.title}</h2>
-                        <div class="flex items-center space-x-4">
-                            <span class="text-[8px] md:text-[10px] mono bg-accent-soft text-academy px-3 py-1 rounded-full border border-accent-soft uppercase tracking-widest">Module ${currentIdx + 1}</span>
-                            <span class="text-[8px] md:text-[10px] mono text-[var(--text-muted)] uppercase tracking-widest">${this.state.activeVideo.duration}</span>
+        return `
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+                <!-- Video Player Area -->
+                <div class="lg:col-span-8 space-y-6 md:space-y-10">
+                    <div class="space-y-3 md:space-y-4">
+                        <div class="flex items-center justify-between text-[8px] md:text-[10px] mono text-[var(--text-muted)] uppercase tracking-[0.3em]">
+                            <span>Course Progress</span>
+                            <span>${progress}% Complete</span>
+                        </div>
+                        <div class="progress-bar bg-accent-soft">
+                            <div class="progress-fill bg-academy" style="width: ${progress}%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-3 md:space-x-4 w-full md:w-auto">
-                        <button onclick="window.os.appMethods.academy.downloadNotes()" class="flex-1 md:flex-none flex items-center justify-center space-x-2 md:space-x-3 bg-white border border-accent-soft px-4 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-3xl text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-academy hover:bg-accent-soft transition-all glass">
-                            <i data-lucide="download" class="w-4 h-4"></i>
-                            <span class="hidden sm:inline">Resources</span>
-                            <span class="sm:hidden">Files</span>
-                        </button>
-                        <button onclick="window.open('${this.state.activeVideo.quizUrl}', '_blank')" class="flex-1 md:flex-none flex items-center justify-center space-x-2 md:space-x-3 bg-academy text-white px-6 md:px-10 py-4 md:py-5 rounded-2xl md:rounded-3xl text-[8px] md:text-[10px] font-bold uppercase tracking-widest hover:opacity-90 hover:scale-105 transition-all shadow-xl">
-                            <i data-lucide="help-circle" class="w-4 h-4"></i>
-                            <span>Quiz</span>
-                        </button>
-                    </div>
-                </div>
 
-                <!-- ✅ FIXED: Notes card (NO dark mode) -->
-                <div class="bg-white border border-accent-soft rounded-[32px] md:rounded-[48px] p-6 md:p-12 glass shadow-lg">
-                    <h4 class="display text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center text-[var(--text)]">
-                        <i data-lucide="file-text" class="w-5 h-5 mr-3 text-academy"></i>
-                        Module Overview
-                    </h4>
-                    <div class="text-[var(--text-muted)] font-light leading-relaxed text-sm md:text-lg whitespace-pre-wrap">
-                        ${this.state.activeVideo.fetchedNotes || 'Loading module overview...'}
+                    <div class="aspect-video bg-slate-900 rounded-[24px] md:rounded-[48px] overflow-hidden border border-accent-soft shadow-2xl relative group">
+                        <video src="${this.state.activeVideo.url}" class="w-full h-full" controls autoplay></video>
                     </div>
-                </div>
-            </div>
-
-            <!-- Curriculum Sidebar -->
-            <div class="lg:col-span-4 space-y-6 md:space-y-8">
-                <div class="bg-white border border-accent-soft rounded-3xl md:rounded-[40px] p-5 md:p-8 glass shadow-lg">
-                    <h4 class="display text-base md:text-xl font-bold mb-4 md:mb-8 px-2 text-[var(--text)]">Curriculum</h4>
-                    <div class="space-y-2 md:space-y-3 max-h-[300px] md:max-h-none overflow-y-auto custom-scrollbar">
-                        ${this.state.selectedBatch.videos.map((v, idx) => `
-                            <div onclick="window.os.appMethods.academy.playVideo('${v.id}')" class="flex items-center space-x-3 md:space-x-5 p-3 md:p-5 rounded-2xl md:rounded-[28px] border ${v.id === this.state.activeVideo.id ? 'bg-academy text-white shadow-xl border-academy' : 'bg-accent-soft border-accent-soft hover:bg-academy/5'} cursor-pointer transition-all group">
-                                <div class="w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-2xl ${v.id === this.state.activeVideo.id ? 'bg-white text-academy' : 'bg-accent-soft text-academy/60'} flex items-center justify-center text-[9px] md:text-xs font-bold transition-all">
-                                    ${idx + 1}
-                                </div>
-                                <div class="flex-1">
-                                    <p class="text-[10px] md:text-sm font-bold ${v.id === this.state.activeVideo.id ? 'text-white' : 'text-[var(--text-muted)] group-hover:text-academy'}">${v.title}</p>
-                                    <p class="text-[7px] md:text-[9px] mono ${v.id === this.state.activeVideo.id ? 'text-sky-100' : 'text-[var(--text-muted)]'} uppercase mt-0.5">${v.duration}</p>
-                                </div>
-                                ${v.id === this.state.activeVideo.id ? '<div class="w-1 h-1 bg-white rounded-full animate-pulse"></div>' : '<i data-lucide="play" class="w-3 h-3 text-academy/40 group-hover:text-academy"></i>'}
+                    
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-8 p-2">
+                        <div class="space-y-2 md:space-y-3">
+                            <h2 class="display text-2xl md:text-4xl font-bold tracking-tight text-[var(--text)] leading-tight">${this.state.activeVideo.title}</h2>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-[8px] md:text-[10px] mono bg-accent-soft text-academy px-3 py-1 rounded-full border border-accent-soft uppercase tracking-widest">Module ${currentIdx + 1}</span>
+                                <span class="text-[8px] md:text-[10px] mono text-[var(--text-muted)] uppercase tracking-widest">${this.state.activeVideo.duration}</span>
                             </div>
-                        `).join('')}
+                        </div>
+                        <div class="flex items-center space-x-3 md:space-x-4 w-full md:w-auto">
+                            <button onclick="window.os.appMethods.academy.downloadNotes()" class="flex-1 md:flex-none flex items-center justify-center space-x-2 md:space-x-3 bg-white dark:bg-slate-900 border border-accent-soft px-4 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-3xl text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-academy hover:bg-accent-soft transition-all glass">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                <span class="hidden sm:inline">Resources</span>
+                                <span class="sm:hidden">Files</span>
+                            </button>
+                            <button onclick="window.open('${this.state.activeVideo.quizUrl}', '_blank')" class="flex-1 md:flex-none flex items-center justify-center space-x-2 md:space-x-3 bg-academy text-white px-6 md:px-10 py-4 md:py-5 rounded-2xl md:rounded-3xl text-[8px] md:text-[10px] font-bold uppercase tracking-widest hover:opacity-90 hover:scale-105 transition-all shadow-xl">
+                                <i data-lucide="help-circle" class="w-4 h-4"></i>
+                                <span>Quiz</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-accent-soft rounded-[32px] md:rounded-[48px] p-6 md:p-12 glass shadow-lg">
+                        <h4 class="display text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center text-[var(--text)]">
+                            <i data-lucide="file-text" class="w-5 h-5 mr-3 text-academy"></i>
+                            Module Overview
+                        </h4>
+                        <div class="text-black font-medium leading-relaxed text-sm md:text-lg whitespace-pre-wrap">${this.state.activeVideo.fetchedNotes || 'Loading module overview...'}</div>
                     </div>
                 </div>
-                
-                <!-- ✅ FIXED: Instructor card (NO dark mode) -->
-                <div class="bg-white border border-accent-soft rounded-3xl md:rounded-[40px] p-5 md:p-8 glass shadow-lg space-y-4 md:space-y-6">
-                    <h5 class="display text-[10px] md:text-sm font-bold uppercase tracking-widest text-[var(--text-muted)]">Instructor</h5>
-                    <div class="flex items-center space-x-3 md:space-x-4">
-                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-accent-soft overflow-hidden border border-accent-soft">
-                            <img src="https://picsum.photos/seed/instructor/100/100" alt="Instructor" class="w-full h-full object-cover">
+
+                <!-- Curriculum Sidebar -->
+                <div class="lg:col-span-4 space-y-6 md:space-y-8">
+                    <div class="bg-white dark:bg-slate-900 border border-accent-soft rounded-3xl md:rounded-[40px] p-5 md:p-8 glass shadow-lg">
+                        <h4 class="display text-base md:text-xl font-bold mb-4 md:mb-8 px-2 text-[var(--text)]">Curriculum</h4>
+                        <div class="space-y-2 md:space-y-3 max-h-[300px] md:max-h-none overflow-y-auto custom-scrollbar">
+                            ${this.state.selectedBatch.videos.map((v, idx) => `
+                                <div onclick="window.os.appMethods.academy.playVideo('${v.id}')" class="flex items-center space-x-3 md:space-x-5 p-3 md:p-5 rounded-2xl md:rounded-[28px] border ${v.id === this.state.activeVideo.id ? 'bg-academy text-white shadow-xl border-academy' : 'bg-accent-soft border-accent-soft hover:bg-academy/5'} cursor-pointer transition-all group">
+                                    <div class="w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-2xl ${v.id === this.state.activeVideo.id ? 'bg-white text-academy' : 'bg-accent-soft text-academy/60'} flex items-center justify-center text-[9px] md:text-xs font-bold transition-all">
+                                        ${idx + 1}
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-[10px] md:text-sm font-bold ${v.id === this.state.activeVideo.id ? 'text-white' : 'text-[var(--text-muted)] group-hover:text-academy'}">${v.title}</p>
+                                        <p class="text-[7px] md:text-[9px] mono ${v.id === this.state.activeVideo.id ? 'text-sky-100' : 'text-[var(--text-muted)]'} uppercase mt-0.5">${v.duration}</p>
+                                    </div>
+                                    ${v.id === this.state.activeVideo.id ? '<div class="w-1 h-1 bg-white rounded-full animate-pulse"></div>' : '<i data-lucide="play" class="w-3 h-3 text-academy/40 group-hover:text-academy"></i>'}
+                                </div>
+                            `).join('')}
                         </div>
-                        <div>
-                            <p class="text-xs md:text-sm font-bold text-[var(--text)]">Alex Rivers</p>
-                            <p class="text-[7px] md:text-[9px] mono text-[var(--text-muted)] uppercase tracking-widest">Master Producer</p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-slate-900 border border-accent-soft rounded-3xl md:rounded-[40px] p-5 md:p-8 glass shadow-lg space-y-4 md:space-y-6">
+                        <h5 class="display text-[10px] md:text-sm font-bold uppercase tracking-widest text-[var(--text-muted)]">Instructor</h5>
+                        <div class="flex items-center space-x-3 md:space-x-4">
+                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-accent-soft overflow-hidden border border-accent-soft">
+                                <img src="https://picsum.photos/seed/instructor/100/100" alt="Instructor" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <p class="text-xs md:text-sm font-bold text-[var(--text)]">Alex Rivers</p>
+                                <p class="text-[7px] md:text-[9px] mono text-[var(--text-muted)] uppercase tracking-widest">Master Producer</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    `;
-},
+        `;
+    },
+
     renderQuiz() {
         if (this.state.quizState.finished) {
             const percentage = Math.round((this.state.quizState.score / this.state.activeVideo.quiz.length) * 100);
@@ -544,53 +537,5 @@ export const AcademyApp = {
             }
         } else {
             this.state.activeVideo.fetchedNotes = video.notes;
-        }
-        
-        os.refreshApp();
-    },
 
-    startQuiz(os = window.os) {
-        this.state.quizState.active = true;
-        const video = document.querySelector('video');
-        if (video) video.pause();
-        os.showPortal(this.renderQuiz());
-    },
 
-    closeQuiz(os = window.os) {
-        this.state.quizState.active = false;
-        this.state.quizState.index = 0;
-        this.state.quizState.score = 0;
-        this.state.quizState.finished = false;
-        os.hidePortal();
-        const video = document.querySelector('video');
-        if (video) video.play();
-        os.refreshApp();
-    },
-
-    answerQuiz(optionIdx, os = window.os) {
-        const question = this.state.activeVideo.quiz[this.state.quizState.index];
-        if (optionIdx === question.a) this.state.quizState.score++;
-        
-        if (this.state.quizState.index < this.state.activeVideo.quiz.length - 1) {
-            this.state.quizState.index++;
-        } else {
-            this.state.quizState.finished = true;
-        }
-        os.showPortal(this.renderQuiz());
-    },
-
-    resetQuiz(os = window.os) {
-        this.state.quizState = { active: true, index: 0, score: 0, finished: false };
-        os.showPortal(this.renderQuiz());
-    },
-
-    downloadNotes() {
-        const content = this.state.activeVideo.fetchedNotes || this.state.activeVideo.notes;
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${this.state.activeVideo.title}_Notes.txt`;
-        a.click();
-    }
-};
