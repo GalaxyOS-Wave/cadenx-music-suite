@@ -21,7 +21,7 @@ export const FormsApp = {
                         { title: 'Service Listing', icon: 'briefcase', desc: 'Apply to list your professional services on our marketplace.', tag: 'Business' },
                         { title: 'Feedback Portal', icon: 'message-square', desc: 'Help us refine the ecosystem with your insights.', tag: 'System' }
                     ].map((f, idx) => `
-                        <div onclick="window.open('https://forms.google.com', '_blank')" 
+                        <div onclick="window.open('https://forms.gle/esqMqPW9UZRuoL458')" 
                             class="bg-slate-50 border border-slate-200 rounded-3xl p-6 md:p-10 flex flex-col space-y-6 hover:bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-pointer shadow-sm"
                             style="animation-delay: ${idx * 0.1}s">
 
