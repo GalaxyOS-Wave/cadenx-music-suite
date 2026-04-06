@@ -16,6 +16,7 @@ export const ACADEMY_DATA = [
         duration: '0:00',
         price: '₹0',
         purchaseUrl: 'https://forms.google.com/purchase-batch-1',
+        thumbnail: 'graphics/sursadhana.png',
         videos: [
             { 
                 id: 'v1', 

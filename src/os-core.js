@@ -1,11 +1,4 @@
 
-fetch("sendEmail", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ name, email, message }),
-  });
 import { AcademyApp } from './apps/academy.js';
 import { ChordApp } from './apps/chord.js';
 import { FormsApp } from './apps/forms.js';
@@ -19,14 +12,14 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 
 const APPS = [
-    { id: 'academy', title: 'Cadenx Academy', description: 'Welcome to the gateway of musical success!', icon: 'graduation-cap', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-2 md:row-span-2', module: AcademyApp },
-    { id: 'chord', title: 'CHORD by Cadenx', description: 'The global directory of elite musical talent and professionals.', icon: 'user-circle', color: 'bg-white', accent: 'text-chord', span: 'md:col-span-1 md:row-span-1', module: ChordApp },
+    { id: 'academy', title: 'Academy', description: 'Master-level music production courses curated by industry legends.', icon: 'graduation-cap', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-2 md:row-span-2', module: AcademyApp },
+    { id: 'chord', title: 'CHORD', description: 'The global directory of elite musical talent and professionals.', icon: 'user-circle', color: 'bg-white', accent: 'text-chord', span: 'md:col-span-1 md:row-span-1', module: ChordApp },
     { id: 'blu', title: 'Cadenx BLU', description: 'The future of AI-assisted production. Your creative co-pilot.', icon: 'sparkles', color: 'bg-white', accent: 'text-blu', span: 'md:col-span-1 md:row-span-2', module: BluApp },
-    { id: 'support', title: 'Cadenx Support', description: '24/7 technical assistance and ecosystem documentation.', icon: 'life-buoy', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-1 md:row-span-1', module: SupportApp },
-    { id: 'forms', title: 'Registrations', description: 'Official registration, listing, and feedback portals.', icon: 'clipboard-list', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-2 md:row-span-1', module: FormsApp },
-    { id: 'community', title: 'Cadenx Community', description: 'Join the collective worldwide.', icon: 'users', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-1 md:row-span-1', module: CommunityApp },
-    { id: 'about', title: 'About Cadenx', description: 'Our mission to redefine the creative economy.', icon: 'info', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-1 md:row-span-1', module: AboutApp },
-    { id: 'profile', title: 'Your Dashboard', description: 'Your personalized producer profile and course progress.', icon: 'user', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-1 md:row-span-1', module: ProfileApp },
+    { id: 'support', title: 'Support', description: '24/7 technical assistance and ecosystem documentation.', icon: 'life-buoy', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-1 md:row-span-1', module: SupportApp },
+    { id: 'forms', title: 'Forms', description: 'Official registration, listing, and feedback portals.', icon: 'clipboard-list', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-2 md:row-span-1', module: FormsApp },
+    { id: 'community', title: 'Community', description: 'Join the collective worldwide.', icon: 'users', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-1 md:row-span-1', module: CommunityApp },
+    { id: 'about', title: 'About', description: 'Our mission to redefine the creative economy.', icon: 'info', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-1 md:row-span-1', module: AboutApp },
+    { id: 'profile', title: 'Dashboard', description: 'Your personalized producer profile and course progress.', icon: 'user', color: 'bg-white', accent: 'text-academy', span: 'md:col-span-1 md:row-span-1', module: ProfileApp },
 ];
 
 class CadenxMusic {
@@ -73,7 +66,7 @@ class CadenxMusic {
         if (bootLog) bootLog.innerHTML = '';
 
         const logs = [
-            "Initializing Cadenx Neural Core V1.1.0...",
+            "Initializing Cadenx Neural Core V2.4.0...",
             "Loading modular ecosystem assets...",
             "Establishing encrypted connection to nodes...",
             "Verifying producer credentials...",
@@ -227,8 +220,8 @@ class CadenxMusic {
         } else {
             if (avatarPlaceholder) avatarPlaceholder.classList.remove('hidden');
             if (avatarImg) avatarImg.classList.add('hidden');
-            if (displayName) displayName.innerText = 'Unknown User';
-            if (statusText) statusText.innerText = 'Musician Mode // Offline';
+            if (displayName) displayName.innerText = 'ELITE EBOOKS';
+            if (statusText) statusText.innerText = 'Producer Mode // Offline';
         }
     }
 
@@ -623,3 +616,4 @@ class CadenxMusic {
 document.addEventListener('DOMContentLoaded', () => {
     new CadenxMusic();
 });
+
