@@ -538,4 +538,7 @@ export const AcademyApp = {
         } else {
             this.state.activeVideo.fetchedNotes = video.notes;
 
-
+        
+        }        
+    }
+}
