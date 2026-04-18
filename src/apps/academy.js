@@ -22,7 +22,7 @@ export const ACADEMY_DATA = [
                 title: 'Welcome to the batch!', 
                 duration: '0:00', 
                 thumbnail: '/graphics/sursadhana.png', 
-                url: '/graphics/sursadhana.png',
+                url: 'https://youtu.be/p9sp41TZImU?si=iXvLqqB1kQQY3PMz',
                 quizUrl: 'https://forms.google.com/your-quiz-link-1',
                 notes: '/notes/welcome1.txt'
             },
